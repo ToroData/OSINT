@@ -1,10 +1,10 @@
 # OSINT
 
-**Índice** 
+**Index** 
 1. [Whois](#id1)
 2. [DNS Enum](#id2)
 3. [theHarvester](#id3)
-
+4. [whatWeb](#id4)
 
 ## Whois<a name="id1"></a>
 Whois is a tool that uses the TCP protocol that allows queries to be made to a database that contains information about the domain of web pages. Probably, as you know, a web use a TCP/IP protocol and every web has an IP though you see a something like www.domain.com. Every web has at least DNS to convert the IP to a direction to be able to remember it easily. So that it is important to see if we can collect some data about it. Later we will see how you can collect specific information about it.
@@ -273,4 +273,366 @@ x22static.nike.com
 x22www.nike.com
 x3ego.nike.com
 
+```
+
+
+
+
+## whatWeb<a name="id4"></a>
+To install this tool, you can run the following code:
+```
+root@kali:~# sudo apt install whatweb
+```
+To find resources to make more accuarate research, you can run:
+```
+root@kali:~# whatweb -h
+```
+```
+WhatWeb - Next generation web scanner version 0.5.5.
+Developed by Andrew Horton (urbanadventurer) and Brendan Coles (bcoles).
+Homepage: https://www.morningstarsecurity.com/research/whatweb
+
+Usage: whatweb [options] <URLs>
+
+TARGET SELECTION:
+  <TARGETs>			Enter URLs, hostnames, IP addresses, filenames or
+  				IP ranges in CIDR, x.x.x-x, or x.x.x.x-x.x.x.x
+  				format.
+  --input-file=FILE, -i		Read targets from a file. You can pipe
+				hostnames or URLs directly with -i /dev/stdin.
+
+TARGET MODIFICATION:
+  --url-prefix			Add a prefix to target URLs.
+  --url-suffix			Add a suffix to target URLs.
+  --url-pattern			Insert the targets into a URL.
+				e.g. example.com/%insert%/robots.txt
+
+AGGRESSION:
+The aggression level controls the trade-off between speed/stealth and
+reliability.
+  --aggression, -a=LEVEL	Set the aggression level. Default: 1.
+  1. Stealthy			Makes one HTTP request per target and also
+  				follows redirects.
+  3. Aggressive			If a level 1 plugin is matched, additional
+  				requests will be made.
+  4. Heavy			Makes a lot of HTTP requests per target. URLs
+  				from all plugins are attempted.
+
+HTTP OPTIONS:
+  --user-agent, -U=AGENT	Identify as AGENT instead of WhatWeb/0.5.5.
+  --header, -H			Add an HTTP header. eg "Foo:Bar". Specifying a
+				default header will replace it. Specifying an
+				empty value, e.g. "User-Agent:" will remove it.
+  --follow-redirect=WHEN	Control when to follow redirects. WHEN may be
+				`never', `http-only', `meta-only', `same-site',
+				or `always'. Default: always.
+  --max-redirects=NUM		Maximum number of redirects. Default: 10.
+
+AUTHENTICATION:
+  --user, -u=<user:password>	HTTP basic authentication.
+  --cookie, -c=COOKIES		Use cookies, e.g. 'name=value; name2=value2'.
+  --cookie-jar=FILE		Read cookies from a file.
+
+PROXY:
+  --proxy			<hostname[:port]> Set proxy hostname and port.
+				Default: 8080.
+  --proxy-user			<username:password> Set proxy user and password.
+
+PLUGINS:
+  --list-plugins, -l		List all plugins.
+  --info-plugins, -I=[SEARCH]	List all plugins with detailed information.
+				Optionally search with keywords in a comma
+				delimited list.
+  --search-plugins=STRING	Search plugins for a keyword.
+  --plugins, -p=LIST		Select plugins. LIST is a comma delimited set
+				of selected plugins. Default is all.
+				Each element can be a directory, file or plugin
+				name and can optionally have a modifier, +/-.
+				Examples: +/tmp/moo.rb,+/tmp/foo.rb
+				title,md5,+./plugins-disabled/
+				./plugins-disabled,-md5
+				-p + is a shortcut for -p +plugins-disabled.
+  --grep, -g=STRING|REGEXP	Search for STRING or a Regular Expression. Shows
+				only the results that match.
+				Examples: --grep "hello"
+				--grep "/he[l]*o/"
+  --custom-plugin=DEFINITION	Define a custom plugin named Custom-Plugin,
+				Examples: ":text=>'powered by abc'"
+				":version=>/powered[ ]?by ab[0-9]/"
+				":ghdb=>'intitle:abc \"powered by abc\"'"
+				":md5=>'8666257030b94d3bdb46e05945f60b42'"
+				"{:text=>'powered by abc'}"
+  --dorks=PLUGIN		List Google dorks for the selected plugin.
+
+OUTPUT:
+  --verbose, -v			Verbose output includes plugin descriptions.
+				Use twice for debugging.
+  --colour,--color=WHEN		control whether colour is used. WHEN may be
+				`never', `always', or `auto'.
+  --quiet, -q			Do not display brief logging to STDOUT.
+  --no-errors			Suppress error messages.
+
+LOGGING:
+  --log-brief=FILE		Log brief, one-line output.
+  --log-verbose=FILE		Log verbose output.
+  --log-errors=FILE		Log errors.
+  --log-xml=FILE		Log XML format.
+  --log-json=FILE		Log JSON format.
+  --log-sql=FILE		Log SQL INSERT statements.
+  --log-sql-create=FILE		Create SQL database tables.
+  --log-json-verbose=FILE	Log JSON Verbose format.
+  --log-magictree=FILE		Log MagicTree XML format.
+  --log-object=FILE		Log Ruby object inspection format.
+  --log-mongo-database		Name of the MongoDB database.
+  --log-mongo-collection	Name of the MongoDB collection.
+				Default: whatweb.
+  --log-mongo-host		MongoDB hostname or IP address.
+				Default: 0.0.0.0.
+  --log-mongo-username		MongoDB username. Default: nil.
+  --log-mongo-password		MongoDB password. Default: nil.
+  --log-elastic-index		Name of the index to store results. Default: whatweb
+  --log-elastic-host		Host:port of the elastic http interface. Default: 127.0.0.1:9200
+
+PERFORMANCE & STABILITY:
+  --max-threads, -t		Number of simultaneous threads. Default: 25.
+  --open-timeout		Time in seconds. Default: 15.
+  --read-timeout		Time in seconds. Default: 30.
+  --wait=SECONDS		Wait SECONDS between connections.
+				This is useful when using a single thread.
+
+HELP & MISCELLANEOUS:
+  --short-help			Short usage help.
+  --help, -h			Complete usage help.
+  --debug			Raise errors in plugins.
+  --version			Display version information.
+```
+
+You can run a simple query using the following code, and you will see that you obtain too much information as IP, servers, cookies, headers, etc. I recommend you to use the verbose mode just including -v. That way, you will obtain a nicer output. 
+It is your goal to understand the majority of the data but remember that the most important phase of ethical hacking is gathering information. Do not underestimate all the effort that you will have to dedicate to it, and try not to advance without having clear knowledge. Remember that so far all the tools used are legal, at least in Spain.
+
+```
+root@kali:~# whatweb -v nike.com  
+
+```
+```       
+WhatWeb report for http://nike.com
+Status    : 301 Moved Permanently
+Title     : <None>
+IP        : 18.66.248.99
+Country   : UNITED STATES, US
+
+Summary   : CloudFront, HTTPServer[CloudFront], RedirectLocation[https://www.nike.com/], Strict-Transport-Security[max-age=63072000], UncommonHeaders[x-amz-cf-pop,x-amz-cf-id], Via-Proxy[1.1 6fadd80db8a3a154b0b68f055a91920c.cloudfront.net (CloudFront)]
+
+Detected Plugins:
+[ CloudFront ]
+        CloudFront Server 
+
+
+[ HTTPServer ]
+        HTTP server header string. This plugin also attempts to 
+        identify the operating system from the server header. 
+
+        String       : CloudFront (from server string)
+
+[ RedirectLocation ]
+        HTTP Server string location. used with http-status 301 and 
+        302 
+
+        String       : https://www.nike.com/ (from location)
+
+[ Strict-Transport-Security ]
+        Strict-Transport-Security is an HTTP header that restricts 
+        a web browser from accessing a website without the security 
+        of the HTTPS protocol. 
+
+        String       : max-age=63072000
+
+[ UncommonHeaders ]
+        Uncommon HTTP server headers. The blacklist includes all 
+        the standard headers and many non standard but common ones. 
+        Interesting but fairly common headers should have their own 
+        plugins, eg. x-powered-by, server and x-aspnet-version. 
+        Info about headers can be found at www.http-stats.com 
+
+        String       : x-amz-cf-pop,x-amz-cf-id (from headers)
+
+[ Via-Proxy ]
+        This plugin extracts the proxy server details from the Via 
+        param of the HTTP header. 
+
+        String       : 1.1 6fadd80db8a3a154b0b68f055a91920c.cloudfront.net (CloudFront)
+
+HTTP Headers:
+        HTTP/1.1 301 Moved Permanently
+        Content-Length: 0
+        Connection: close
+        Server: CloudFront
+        Date: Fri, 08 Jul 2022 14:35:28 GMT
+        Strict-Transport-Security: max-age=63072000
+        Cache-Control: max-age=300, s-maxage=604800
+        Location: https://www.nike.com/
+        X-Cache: Hit from cloudfront
+        Via: 1.1 6fadd80db8a3a154b0b68f055a91920c.cloudfront.net (CloudFront)
+        X-Amz-Cf-Pop: DUS51-P1
+        X-Amz-Cf-Id: pE33aYHU7ShAw9ZB7WLsFAB8rZLDMlVSun2omXdr1bbPZuyrQqriBQ==
+        Age: 452060
+
+WhatWeb report for https://www.nike.com/
+Status    : 302 Found
+Title     : <None>
+IP        : 2.20.214.187
+Country   : EUROPEAN UNION, EU
+
+Summary   : Akamai-Global-Host, Cookies[AnalysisUserId,anonymousId,geoloc], HTTPServer[AkamaiGHost], RedirectLocation[https://www.nike.com/ch/], UncommonHeaders[server-timing]
+
+Detected Plugins:
+[ Akamai-Global-Host ]
+        Akamai-Global-Host HTTPd 
+
+        Website     : https://www.akamai.com
+
+[ Cookies ]
+        Display the names of cookies in the HTTP headers. The 
+        values are not returned to save on space. 
+
+        String       : AnalysisUserId
+        String       : geoloc
+        String       : anonymousId
+
+[ HTTPServer ]
+        HTTP server header string. This plugin also attempts to 
+        identify the operating system from the server header. 
+
+        String       : AkamaiGHost (from server string)
+
+[ RedirectLocation ]
+        HTTP Server string location. used with http-status 301 and 
+        302 
+
+        String       : https://www.nike.com/ch/ (from location)
+
+[ UncommonHeaders ]
+        Uncommon HTTP server headers. The blacklist includes all 
+        the standard headers and many non standard but common ones. 
+        Interesting but fairly common headers should have their own 
+        plugins, eg. x-powered-by, server and x-aspnet-version. 
+        Info about headers can be found at www.http-stats.com 
+
+        String       : server-timing (from headers)
+
+HTTP Headers:
+        HTTP/1.1 302 Moved Temporarily
+        Server: AkamaiGHost
+        Content-Length: 0
+        Location: https://www.nike.com/ch/
+        Date: Wed, 13 Jul 2022 20:09:50 GMT
+        Connection: close
+        Set-Cookie: AnalysisUserId=23.10.249.94.282021657742990983; expires=Mon, 31-Dec-2038 23:59:59 GMT; path=/; domain=.nike.com
+        Set-Cookie: geoloc=cc=CH,rc=ZH,tp=vhigh,tz=GMT+1,la=47.37,lo=8.55; path=/; domain=.nike.com
+        Set-Cookie: anonymousId=3F2BEAF68456905F6161C1D5A2CD57F1; expires=Wed, 27-Jul-2022 20:09:50 GMT; domain=.nike.com
+        Server-Timing: cdn-cache; desc=HIT
+        Server-Timing: edge; dur=1
+
+WhatWeb report for https://www.nike.com/ch/
+Status    : 200 OK
+Title     : Nike Official Site. Nike CH
+IP        : 2.20.214.187
+Country   : EUROPEAN UNION, EU
+
+Summary   : Cookies[AnalysisUserId,anonymousId,audience_segmentation_performed,feature_enabled__as_nav_rollout,geoloc], HTML5, HTTPServer[unified-edge-router], Open-Graph-Protocol[website], Script[application/javascript,application/json,application/ld+json,text/javascript], UncommonHeaders[x-unifiededgerouter-gitsha1,server-timing,x-akamai-transformed,content-security-policy,x-commit-sha,x-build-number,x-branch-name,x-b3-traceid], X-Frame-Options[sameorigin], X-Powered-By[Next.js]
+
+Detected Plugins:
+[ Cookies ]
+        Display the names of cookies in the HTTP headers. The 
+        values are not returned to save on space. 
+
+        String       : AnalysisUserId
+        String       : feature_enabled__as_nav_rollout
+        String       : audience_segmentation_performed
+        String       : anonymousId
+        String       : geoloc
+        String       : geoloc
+        String       : geoloc
+        String       : geoloc
+        String       : geoloc
+
+[ HTML5 ]
+        HTML version 5, detected by the doctype declaration 
+
+
+[ HTTPServer ]
+        HTTP server header string. This plugin also attempts to 
+        identify the operating system from the server header. 
+
+        String       : unified-edge-router (from server string)
+
+[ Open-Graph-Protocol ]
+        The Open Graph protocol enables you to integrate your Web 
+        pages into the social graph. It is currently designed for 
+        Web pages representing profiles of real-world things . 
+        things like movies, sports teams, celebrities, and 
+        restaurants. Including Open Graph tags on your Web page, 
+        makes your page equivalent to a Facebook Page. 
+
+        Version      : website
+
+[ Script ]
+        This plugin detects instances of script HTML elements and 
+        returns the script language/type. 
+
+        String       : application/javascript,application/json,application/ld+json,text/javascript
+
+[ UncommonHeaders ]
+        Uncommon HTTP server headers. The blacklist includes all 
+        the standard headers and many non standard but common ones. 
+        Interesting but fairly common headers should have their own 
+        plugins, eg. x-powered-by, server and x-aspnet-version. 
+        Info about headers can be found at www.http-stats.com 
+
+        String       : x-unifiededgerouter-gitsha1,server-timing,x-akamai-transformed,content-security-policy,x-commit-sha,x-build-number,x-branch-name,x-b3-traceid (from headers)                                                                                                                                         
+
+[ X-Frame-Options ]
+        This plugin retrieves the X-Frame-Options value from the 
+        HTTP header. - More Info: 
+        http://msdn.microsoft.com/en-us/library/cc288472%28VS.85%29.
+        aspx
+
+        String       : sameorigin
+
+[ X-Powered-By ]
+        X-Powered-By HTTP header 
+
+        String       : Next.js (from x-powered-by string)
+
+HTTP Headers:
+        HTTP/1.1 200 OK
+        Server: unified-edge-router
+        Content-Length: 768856
+        Content-Type: text/html; charset=UTF-8
+        Set-Cookie: AnalysisUserId=23.10.249.55.78421657742992559; expires=Mon, 31-Dec-2038 23:59:59 GMT; path=/; domain=.nike.com
+        Set-Cookie: feature_enabled__as_nav_rollout=true; Domain=.nike.com; Secure; Max-Age=3600; Path=/
+        Set-Cookie: audience_segmentation_performed=true; Domain=.nike.com; Secure; Max-Age=3600; Path=/
+        Set-Cookie: anonymousId=4EE04C61F8BE8340C766985B3777CB4E; expires=Wed, 27-Jul-2022 20:09:52 GMT; domain=.nike.com
+        Set-Cookie: geoloc=cc=CH,rc=ZH,tp=vhigh,tz=GMT+1,la=47.37,lo=8.55; path=/; domain=.nike.com
+        Set-Cookie: geoloc=cc=CH,rc=ZH,tp=vhigh,tz=GMT+1,la=47.43,lo=8.56; path=/; domain=.nike.com
+        Set-Cookie: geoloc=cc=CH,rc=ZH,tp=vhigh,tz=GMT+1,la=47.43,lo=8.56; path=/; domain=.nike.com
+        Set-Cookie: geoloc=cc=CH,rc=ZH,tp=vhigh,tz=GMT+1,la=47.43,lo=8.56; path=/; domain=.nike.com
+        Set-Cookie: geoloc=cc=CH,rc=ZH,tp=vhigh,tz=GMT+1,la=47.43,lo=8.56; path=/; domain=.nike.com
+        X-UnifiedEdgeRouter-GitSha1: 79cdc8db
+        Server-Timing: edge; dur=22
+        Server-Timing: cdn-cache; desc=HIT
+        Vary: Accept-Encoding
+        X-Akamai-Transformed: 9 96603 0 pmb=mNONE,1mRUM,3
+        ETag: "7164b-yVjNi/UUNB89UV2dMdfyQrJ09D0"
+        X-Frame-Options: sameorigin
+        Content-Security-Policy: frame-ancestors 'self' *.nike.com *.nikecloud.com *.nikedev.com
+        x-commit-sha: 70e2e0e41
+        x-build-number: 281
+        x-branch-name: main
+        X-B3-TraceId: 21d1bfffbf6c092b, 21d1bfffbf6c092b
+        X-Powered-By: Next.js
+        Cache-Control: max-age=473
+        Expires: Wed, 13 Jul 2022 20:17:45 GMT
+        Date: Wed, 13 Jul 2022 20:09:52 GMT
+        Connection: close
 ```
