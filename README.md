@@ -2,14 +2,14 @@
 
 **Índice** 
 1. [Whois](#id1)
-2. [Segundo apartado](#id2)
+2. [DNS Enum](#id2)
 
 
 ## Whois<a name="id1"></a>
 Whois is a tool that uses the TCP protocol that allows queries to be made to a database that contains information about the domain of web pages. Probably, as you know, a web use a TCP/IP protocol and every web has an IP though you see a something like www.domain.com. Every web has at least DNS to convert the IP to a direction to be able to remember it easily. So that it is important to see if we can collect some data about it. Later we will see how you can collect specific information about it.
 
 ```
-$ whois www.nike.es
+root@kali:~# whois www.nike.es
 ```
 The result you get when you run the last command is (the output is formatted for better readability):
 ```
@@ -105,10 +105,63 @@ DNSSEC: unsigned
 ```
 As you can see the output shows directions, emails, servers, etc. that it is very relevant for gathering information to exploit later. I encourage to you to think what you can do with this data and what parts of it are the most relevant for you.
 
-## Segundo apartado<a name="id2"></a>
-
-Will use this tools:
+## DNS Enum<a name="id2"></a>
+DNS Enum is a specific tool to find the DNS servers information and to discover non-contiguous IP blocks. To install this tool, you can run the following code:
 ```
+root@kali:~# sudo apt install dnsenum
+```
+To find resources to make more accuarate research, you can run:
+```
+root@kali:~# dnsenum -h
+```
+```Usage: dnsenum [Options] <domain>
+[Options]:
+Note: If no -f tag supplied will default to /usr/share/dnsenum/dns.txt or
+the dns.txt file in the same directory as dnsenum.pl
+GENERAL OPTIONS:
+  --dnsserver 	<server>
+			Use this DNS server for A, NS and MX queries.
+  --enum		Shortcut option equivalent to --threads 5 -s 15 -w.
+  -h, --help		Print this help message.
+  --noreverse		Skip the reverse lookup operations.
+  --nocolor		Disable ANSIColor output.
+  --private		Show and save private ips at the end of the file domain_ips.txt.
+  --subfile <file>	Write all valid subdomains to this file.
+  -t, --timeout <value>	The tcp and udp timeout values in seconds (default: 10s).
+  --threads <value>	The number of threads that will perform different queries.
+  -v, --verbose		Be verbose: show all the progress and all the error messages.
+GOOGLE SCRAPING OPTIONS:
+  -p, --pages <value>	The number of google search pages to process when scraping names,
+			the default is 5 pages, the -s switch must be specified.
+  -s, --scrap <value>	The maximum number of subdomains that will be scraped from Google (default 15).
+BRUTE FORCE OPTIONS:
+  -f, --file <file>	Read subdomains from this file to perform brute force. (Takes priority over default dns.txt)
+  -u, --update	<a|g|r|z>
+			Update the file specified with the -f switch with valid subdomains.
+	a (all)		Update using all results.
+	g		Update using only google scraping results.
+	r		Update using only reverse lookup results.
+	z		Update using only zonetransfer results.
+  -r, --recursion	Recursion on subdomains, brute force all discovered subdomains that have an NS record.
+WHOIS NETRANGE OPTIONS:
+  -d, --delay <value>	The maximum value of seconds to wait between whois queries, the value is defined randomly, default: 3s.
+  -w, --whois		Perform the whois queries on c class network ranges.
+			 **Warning**: this can generate very large netranges and it will take lot of time to perform reverse lookups.
+REVERSE LOOKUP OPTIONS:
+  -e, --exclude	<regexp>
+			Exclude PTR records that match the regexp expression from reverse lookup results, useful on invalid hostnames.
+OUTPUT OPTIONS:
+  -o --output <file>	Output in XML format. Can be imported in MagicTree (www.gremwell.com)
+  ```
+
+In this particualr example the output is:
 
 ```
+root@kali:~# dnsenum www.nike.com
+   
+   e2785.x.akamaiedge.net.                  5        IN    A        23.15.132.184
+```
+23.15.132.184 is the IP of the DNS of www.nike.com
+
+
 
