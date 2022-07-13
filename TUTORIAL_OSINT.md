@@ -3,6 +3,7 @@
 **Índice** 
 1. [Whois](#id1)
 2. [DNS Enum](#id2)
+3. [theHarvester](#id3)
 
 
 ## Whois<a name="id1"></a>
@@ -163,5 +164,8 @@ root@kali:~# dnsenum www.nike.com
 ```
 23.15.132.184 is the IP of the DNS of www.nike.com
 
+Also, you can consult the [network-tools](https://network-tools.com/dns-records/) to make the same consult. You will see something like this:
+	![image](https://user-images.githubusercontent.com/109081430/178818383-ff72abda-3c3f-499c-8b08-713aa37e95c4.png)
 
 
+## theHarvester<a name="id3"></a>
