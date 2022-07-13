@@ -170,13 +170,15 @@ Also, you can consult the [network-tools](https://network-tools.com/dns-records/
 
 
 ## theHarvester<a name="id3"></a>
+theHarvester it is so useful to find public emails. It is very important for a social engineering in the exploitation phase.
+
 To install this tool, you can run the following code:
 ```
-root@kali:~# sudo apt install theharvester
+root@kali:~# sudo apt install theHarvester
 ```
 To find resources to make more accuarate research, you can run:
 ```
-root@kali:~# theharvester -h
+root@kali:~# theHarvester -h
 ```
 ```
 usage: restfulHarvest [-h] [-H HOST] [-p PORT] [-l LOG_LEVEL] [-r]
@@ -237,3 +239,38 @@ options:
                         yahoo, zoomeye
 ```
 
+You can run a simple query using the following command. As you can imagine, you have to consult the help resource of the tool as I show you to learn the option you can include. But, basically -d is for the domain, -l it is equivalent to say the limit of the research and -b is to specify the source, for instance, to specify the search engine. What makes -g? What is Google Dorks?
+```
+root@kali:~# theHarvester -d nike.com -l 500 -b google
+
+```
+```
+[*] Target: nike.com 
+ 
+        Searching 0 results.
+        Searching 100 results.
+        Searching 200 results.
+        Searching 300 results.
+        Searching 400 results.
+        Searching 500 results.
+[*] Searching Google. 
+
+[*] No IPs found.
+
+[*] Emails found: 1
+----------------------
+nike.googleplaysupport@nike.com
+
+[*] Hosts found: 9
+---------------------
+go.nike.com:95.100.52.159
+jobs.nike.com:2.20.214.187
+m.nike.com:2.20.214.187
+static.nike.com:23.54.112.222
+www.nike.com:2.20.214.187
+x22m.nike.com
+x22static.nike.com
+x22www.nike.com
+x3ego.nike.com
+
+```
